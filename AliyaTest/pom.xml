@@ -5,22 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>ru.itis</groupId>
-    <artifactId>PostsWebAppSpring</artifactId>
-    <version>01</version>
+    <artifactId>test</artifactId>
+    <version>0.1</version>
     <packaging>war</packaging>
 
     <dependencies>
-
-       <!-- <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-tomcat</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>-->
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -118,4 +107,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

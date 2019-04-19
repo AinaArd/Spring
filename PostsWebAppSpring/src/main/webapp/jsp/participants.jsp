@@ -21,21 +21,11 @@
         </c:forEach>
     </table>
 
-   <%-- <form method="post">
-        <label for="name">Name
-            <input class="input-field" type="text" id="name" name="name">
-        </label>
 
-        <label for="city">City
-            <input class="input-field" type="text" id="city" name="city">
-        </label>
-
-        <label for="email">Email
-            <input class="input-field" type="text" id="email" name="email">
-        </label>
-
-        <input type="submit" value="Add new">
-    </form>--%>
+    <form action="<c:url value="/login"/>">
+        <input type="submit" value="Log in by email">
+    </form>
+    <%--<a href="/login">Log in</a>--%>
 </div>
 </body>
 </html>

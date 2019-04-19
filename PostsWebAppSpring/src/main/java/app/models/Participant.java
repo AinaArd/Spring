@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Builder
 @Table(name = "participant")
 public class Participant {
-    private long id;
+    private Long id;
     private String name;
     private String city;
     private String email;

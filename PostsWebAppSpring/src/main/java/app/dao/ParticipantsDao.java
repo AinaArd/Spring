@@ -16,10 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
-public class ParticipantsDao implements SimpleDao {
+public class ParticipantsDao {
     private JdbcTemplate jdbcTemplate;
 
     private final String SQL_SELECT_ALL = "SELECT * FROM participant";
+    private final String SQL_SELECT_ONE = "SELECT * FROM participant where email = ?";
     private final String SQL_ADD_NEW_PARTICIPANT = "INSERT INTO participant(\"name\", \"city\", \"email\") VALUES(?, ?, ?)";
 
 
@@ -28,15 +29,16 @@ public class ParticipantsDao implements SimpleDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    @Override
-    public List<Participant> getParticipants() {
-        //подключиться к бд и достать пользователей
+    public List<Participant> getAll() {
         return jdbcTemplate.query(SQL_SELECT_ALL, rowMapper);
     }
 
-    @Override
-    public void saveParticipant(String name, String city, String email) {
+    public void save(String name, String city, String email) {
         jdbcTemplate.update(SQL_ADD_NEW_PARTICIPANT, name, city, email);
+    }
+
+    public void save(String text, Long id) {
+
     }
 
     private RowMapper<Participant> rowMapper = (resultSet, i) -> Participant.builder()
@@ -45,6 +47,14 @@ public class ParticipantsDao implements SimpleDao {
             .city(resultSet.getString("city"))
             .email(resultSet.getString("email"))
             .build();
+
+    public Participant logIn(String email) {
+        return jdbcTemplate.query(SQL_SELECT_ONE, rowMapper, email).get(0);
+    }
+
+    public Participant getParticipant(String email) {
+        return (Participant) jdbcTemplate.query(SQL_SELECT_ONE, rowMapper, email);
+    }
 }
 
 
