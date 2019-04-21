@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Component;
+import ru.itis.models.Manufacturer;
 import ru.itis.models.Product;
 
 import javax.sql.DataSource;
@@ -13,23 +14,13 @@ import java.util.List;
 public class ProductsDao {
     private JdbcTemplate jdbcTemplate;
 
-    private final String SQL_SELECT_ALL = "SELECT * FROM product";
-    private final String SQL_FIND = "SELECT * FROM product where name =? or price =? or manufacturer_id=?";
-    private final String SQL_ADD_NEW_PRODUCT = "INSERT INTO product(\"name\", \"price\") VALUES(?, ?)";
-
-
+    private final String SQL_FIND = "SELECT * FROM product where name =? and manufacturer_id=? and price=?";
+    private final String SQL_ADD_NEW_PRODUCT = "with ins1 as (insert into manufacturer (name) VALUES (?)  returning id)\n" +
+            "insert into product(name, price, manufacturer_id) values (?,?,(select id from ins1))";
 
     @Autowired
     public ProductsDao(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
-    }
-
-    public List<Product> getAll() {
-        return jdbcTemplate.query(SQL_SELECT_ALL, rowMapper);
-    }
-
-    public void save(String name, String price) {
-        jdbcTemplate.update(SQL_ADD_NEW_PRODUCT, name, price);
     }
 
     private RowMapper<Product> rowMapper = (resultSet, i) -> Product.builder()
@@ -39,11 +30,11 @@ public class ProductsDao {
             .manufacturer(resultSet.getLong("manufacturer_id"))
             .build();
 
-    public boolean findProduct(String name, String price, Long id) {
-        List<Product> products = jdbcTemplate.query(SQL_FIND, name, price, id);
-        if(!products.isEmpty()){
-            return true;
-        }
-        return false;
+    public List<Product> findProduct(String name, String price, Manufacturer manufacturer) {
+        return jdbcTemplate.query(SQL_FIND, rowMapper, name, manufacturer.getId(), price);
+    }
+
+    public void save(String name, String price, String manufacturerName) {
+        jdbcTemplate.update(SQL_ADD_NEW_PRODUCT, manufacturerName, name, price);
     }
 }

@@ -8,23 +8,27 @@
 
 <div class="form-style-2">
     <div class="form-style-2-heading">
-        Register
+        Search
     </div>
     <form method="post">
 
-        <label for="name">Имя
+        <label for="name">Name
             <input class="input-field" type="text" id="name" name="name">
         </label>
 
-        <label for="city">City
-            <input class="input-field" type="text" id="city" name="city">
+        <label for="price">Price
+            <input class="input-field" type="text" id="price" name="price">
         </label>
 
-        <label for="email">Email
-            <input class="input-field" type="text" id="email" name="email">
+        <label for="manufacturer">Manufacturer
+            <input class="input-field" type="text" id="manufacturer" name="manufacturer">
         </label>
 
-        <input type="submit" value="Save">
+        <label for="sale">
+            <input type="checkbox" id="sale" name="checkbox" value="Sale">Sale
+        </label><br>
+
+        <input type="submit" value="Ok">
 
     </form>
 </div>

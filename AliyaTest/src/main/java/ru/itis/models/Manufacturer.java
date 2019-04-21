@@ -1,5 +1,8 @@
 package ru.itis.models;
 
+import lombok.Builder;
+
+@Builder
 public class Manufacturer {
     private Long id;
     private String name;
@@ -23,5 +26,10 @@ public class Manufacturer {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 }

@@ -53,4 +53,14 @@ public class Product {
     public void setManufacturer(Long manufacturer) {
         this.manufacturer = manufacturer;
     }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price='" + price + '\'' +
+                ", manufacturer=" + manufacturer +
+                '}';
+    }
 }
