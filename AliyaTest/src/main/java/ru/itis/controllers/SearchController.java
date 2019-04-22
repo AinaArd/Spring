@@ -47,7 +47,6 @@ public class SearchController {
                 return "redirect:products";
             }
         } else {
-            manufacturersDao.save(manufacturerName);
             productsDao.save(name, price, manufacturerName);
             return "redirect:search";
         }
