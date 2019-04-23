@@ -3,6 +3,7 @@ package app.controllers;
 import app.models.Message;
 import app.models.User;
 import app.repositories.MessagesRepository;
+import app.repositories.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +17,10 @@ import java.util.List;
 @RequestMapping(path = "/messages")
 public class MessagesController {
     @Autowired
-    MessagesRepository messagesRepository;
+    private MessagesRepository messagesRepository;
+
+    @Autowired
+    private UsersRepository usersRepository;
 
     @RequestMapping(method = RequestMethod.GET, params = {"userName"})
     public ModelAndView getMessagesOfUser(@RequestParam(name = "userName") String userName) {
@@ -49,6 +53,9 @@ public class MessagesController {
         System.out.println(messages);
         modelAndView.setViewName("messages");
         modelAndView.addObject("messages", messages);
+
+//        delete example
+//        messagesRepository.deleteByContentAndId("delete", 3L);
         return modelAndView;
     }
 
